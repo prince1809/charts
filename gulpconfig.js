@@ -1,9 +1,15 @@
-/*
-*   This file controls the brhaviour of the build tasks in gulpfile.js
-*/
-
 
 var COMPONENT_NAME = 'Chart';
+
+
+// Read the package.json to detect the package name and dependencies
+var pkg = JSON.parse(require('fs').readFileSync('./package.json'));
+
+var dependencies = [];
+Object.keys(pkg.dependencies).forEach(function(i) {
+	if (i !== 'reactify' && i!== 'paths-js') dependencies.push(i);
+});
+
 
 module.exports = {
   component: {
@@ -11,8 +17,8 @@ module.exports = {
     name: COMPONENT_NAME,
     src: 'src',
     dist: 'dist',
-    //pkgName: pkg.name,
-    //dependencies: dependencies
+    pkgName: pkg.name,
+    dependencies: dependencies
   },
   example: {
     src: 'example/src',
